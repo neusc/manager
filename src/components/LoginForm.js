@@ -16,6 +16,7 @@ class LoginForm extends Component {
             label="Email"
             placeholder="email@gmail.com"
             onChangeText={() => this.OnEmailChange}
+            value={this.props.email}
           />
         </CardSection>
         <CardSection>
@@ -34,4 +35,11 @@ class LoginForm extends Component {
   }
 }
 
-export default connect(null, { emailChanged })(LoginForm)
+// 将reducer生成的新state作为props传入组件
+const mapStateToProps = state => {
+  return {
+    email: state.auth.email
+  }
+}
+
+export default connect(mapStateToProps, { emailChanged })(LoginForm)
