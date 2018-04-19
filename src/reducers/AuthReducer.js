@@ -27,7 +27,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true, error: '' }
     case LOGIN_USER_SUCCESS:
-      return { ...state, user: action.payload, error: '', loading: false }
+      return { ...state, user: action.payload, ...INITIAL_STATE } // 登陆成功之后状态初始化
     case LOGIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed', password: '', loading: false }
   }
