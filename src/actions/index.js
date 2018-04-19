@@ -44,7 +44,8 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user
   })
   // 登陆成功之后跳转页面
-  Actions.employeeList()
+  // 跳转到scene group，会自动跳转到当前scene group下的第一个scene
+  Actions.main()
 }
 
 const loginUserFail = (dispatch) => {
