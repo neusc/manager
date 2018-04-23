@@ -38,9 +38,10 @@ export const employeesFetch = () => {
         querySnapshot.forEach(function (doc) {
           employees[doc.id] = doc.data()
         })
+        // dispatch必须放在promise成功回调中，否则可能没有获取到数据就dispatch
+        dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: employees })
       }, function (error) {
         console.log(error)
       })
-    dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: employees })
   }
 }
