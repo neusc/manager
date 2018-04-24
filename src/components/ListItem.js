@@ -5,7 +5,7 @@ import { CardSection } from './common'
 class ListItem extends Component {
 
   render () {
-    const { name } = this.props.employee
+    const { name } = this.props.employee.item
     return (
       <CardSection>
         <Text style={styles.titleStyle}>{name}</Text>
