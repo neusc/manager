@@ -45,3 +45,16 @@ export const employeesFetch = () => {
       })
   }
 }
+
+export const employeeSave = ({ name, phone, shift, uid }) => {
+  let db = firebase.firestore()
+  let userId = firebase.auth().currentUser.uid
+  // 此处使用firebase的Cloud Firestore作为数据库 https://firebase.google.com/docs/firestore/data-model
+  return (dispatch) => {
+    db.collection('users').doc(userId).collection('employees').doc(uid).set({ name, phone, shift })
+      .then(() => {
+        console.log('saved!')
+      })
+      .catch(error => {console.log(error)})
+  }
+}
