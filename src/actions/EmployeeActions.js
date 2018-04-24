@@ -2,7 +2,13 @@ import firebase from 'firebase'
 // Required for side-effects
 require('firebase/firestore')
 import { Actions } from 'react-native-router-flux'
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FETCH_SUCCESS } from './types'
+import {
+  EMPLOYEE_UPDATE,
+  EMPLOYEE_CREATE,
+  EMPLOYEES_FETCH_SUCCESS,
+  EMPLOYEE_SAVE_SUCCESS,
+  EMPLOYEE_RESET
+} from './types'
 
 export const employeeUpdate = ({ prop, value }) => {
   return {
@@ -53,8 +59,15 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
   return (dispatch) => {
     db.collection('users').doc(userId).collection('employees').doc(uid).set({ name, phone, shift })
       .then(() => {
-        console.log('saved!')
+        dispatch({ type: EMPLOYEE_SAVE_SUCCESS }) // 更新雇员信息成功后重置创建表单的数据
+        Actions.main({ type: 'reset' })// 去除当前页面左上角的返回按钮
       })
       .catch(error => {console.log(error)})
+  }
+}
+
+export const employeeReset = () => {
+  return  {
+    type: EMPLOYEE_RESET
   }
 }
