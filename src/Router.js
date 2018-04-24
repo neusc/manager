@@ -32,7 +32,7 @@ class RouterComponent extends Component {
             <Scene
               key="employeeCreate"
               backTitle="employee"
-              onBack={() => this.onBackPress()}
+              onBack={() => this.onBackPress()} // onBack事件处理函数必须在存在backTitle或back属性的情况下才能生效
               component={EmployeeCreate}
               title="Create Employee"
             />
