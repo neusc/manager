@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { CardSection } from './common'
+import { CardSection, Card } from './common'
 
 class ListItem extends Component {
   onItemPress () {
@@ -11,13 +11,13 @@ class ListItem extends Component {
   render () {
     const { name } = this.props.employee.item
     return (
-      <TouchableWithoutFeedback onPress={() => this.onItemPress()}>
-        <View>o
+      <TouchableOpacity onPress={() => this.onItemPress()}>
+        <Card>
           <CardSection>
             <Text style={styles.titleStyle}>{name}</Text>
           </CardSection>
-        </View>
-      </TouchableWithoutFeedback>
+        </Card>
+      </TouchableOpacity>
     )
   }
 }
@@ -25,7 +25,9 @@ class ListItem extends Component {
 const styles = {
   titleStyle: {
     fontSize: 18,
-    paddingLeft: 15
+    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 10
   }
 }
 

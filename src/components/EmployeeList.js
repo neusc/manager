@@ -30,6 +30,7 @@ class EmployeeList extends Component {
 
 const mapStateToProps = (state) => {
   // 将键值对对象转化为数组
+  // employees结构类似{uid: {name,phone,shift}}
   const employees = _.map(state.employees, (val, uid) => {
     return { ...val, uid }
   })
