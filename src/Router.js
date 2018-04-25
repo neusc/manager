@@ -9,7 +9,7 @@ import { employeeReset } from './actions'
 
 class RouterComponent extends Component {
   onBackPress () {
-    Actions.pop()
+    Actions.main()
     this.props.employeeReset()
   }
 
