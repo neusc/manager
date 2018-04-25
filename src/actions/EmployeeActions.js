@@ -43,7 +43,7 @@ export const employeesFetch = () => {
     // onSnapshot监听当前用户下employees集合的变化
     // 当创建、更新或删除集合里的内容时会自动触发回调，redux自动发送action
     // 此处有坑，不能监听employees集合的父级文档
-    db.collection('users').doc(userId).collection('employees')
+    db.collection('users').doc(userId).collection('employees').orderBy("name")
       .onSnapshot(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           employees[doc.id] = doc.data()
