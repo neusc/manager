@@ -4,7 +4,7 @@ import { CardSection } from './CardSection'
 import { Button } from './Button'
 
 const Confirm = ({ children, visible, onAccept, onDecline }) => {
-  const { cardSectionStyle, textStyle, containerStyle } = styles
+  const { cardSectionStyle, textStyle, containerStyle, sectionContainerStyle } = styles
   return (
     <Modal
       visible={visible}
@@ -13,14 +13,16 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
       onRequestClose={() => {}}
     >
       <View style={containerStyle}>
-        <CardSection style={cardSectionStyle}>
-          <Text style={textStyle}>{children}</Text>
-        </CardSection>
+        <View style={sectionContainerStyle}>
+          <CardSection style={cardSectionStyle}>
+            <Text style={textStyle}>{children}</Text>
+          </CardSection>
 
-        <CardSection>
-          <Button onPress={onAccept}>Yes</Button>
-          <Button onPress={onDecline}>No</Button>
-        </CardSection>
+          <CardSection>
+            <Button onPress={onAccept}>Yes</Button>
+            <Button onPress={onDecline}>No</Button>
+          </CardSection>
+        </View>
       </View>
     </Modal>
   )
@@ -40,7 +42,13 @@ const styles = {
     backgroundColor: 'rgba(0,0,0,0.75)',
     position: 'relative',
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
     justifyContent: 'center'
+  },
+  sectionContainerStyle: {
+    borderRadius: 5,
+    overflow: 'hidden'
   }
 }
 
