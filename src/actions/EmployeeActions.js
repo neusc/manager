@@ -7,9 +7,11 @@ import {
   EMPLOYEE_CREATE,
   EMPLOYEES_FETCH_SUCCESS,
   EMPLOYEE_SAVE_SUCCESS,
-  EMPLOYEE_RESET
+  EMPLOYEE_RESET,
+  EMPLOYEE_DELETE_SUCCESS
 } from './types'
 
+// 更新雇员表单信息的action creator
 export const employeeUpdate = ({ prop, value }) => {
   return {
     type: EMPLOYEE_UPDATE,
@@ -17,6 +19,7 @@ export const employeeUpdate = ({ prop, value }) => {
   }
 }
 
+// 创建新雇员的action creator
 export const employeeCreate = ({ name, phone, shift }) => {
   let db = firebase.firestore()
   let userId = firebase.auth().currentUser.uid
@@ -31,6 +34,7 @@ export const employeeCreate = ({ name, phone, shift }) => {
   }
 }
 
+// 获取雇员列表的action creator
 export const employeesFetch = () => {
   let db = firebase.firestore()
   let userId = firebase.auth().currentUser.uid
@@ -52,6 +56,7 @@ export const employeesFetch = () => {
   }
 }
 
+// 更新并保存雇员信息的action creator
 export const employeeSave = ({ name, phone, shift, uid }) => {
   let db = firebase.firestore()
   let userId = firebase.auth().currentUser.uid
@@ -66,8 +71,24 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
   }
 }
 
+// 删除雇员的action creator
+export const employeeDelete = ({ uid }) => {
+  let db = firebase.firestore()
+  let userId = firebase.auth().currentUser.uid
+  // 此处使用firebase的Cloud Firestore作为数据库 https://firebase.google.com/docs/firestore/data-model
+  return (dispatch) => {
+    db.collection('users').doc(userId).collection('employees').doc(uid).delete()
+      .then(() => {
+        dispatch({ type: EMPLOYEE_DELETE_SUCCESS }) // 更新雇员信息成功后重置创建表单的数据
+        Actions.main({ type: 'reset' })// 去除当前页面左上角的返回按钮
+      })
+      .catch(error => {console.log(error)})
+  }
+}
+
+// 重置表单信息的action creator
 export const employeeReset = () => {
-  return  {
+  return {
     type: EMPLOYEE_RESET
   }
 }
