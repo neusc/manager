@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 // Required for side-effects
 require('firebase/firestore')
-import { Actions, ActionConst } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
@@ -48,7 +48,6 @@ export const employeesFetch = () => {
         querySnapshot.forEach(function (doc) {
           employees[doc.id] = doc.data()
         })
-        console.log(employees)
         // dispatch必须放在promise成功回调中，否则可能没有获取到数据就dispatch
         dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: employees })
       }, function (error) {
