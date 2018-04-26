@@ -31,8 +31,12 @@ class EmployeeList extends Component {
 const mapStateToProps = (state) => {
   // 将键值对对象转化为数组
   // employees结构类似{uid: {name,phone,shift}}
-  const employees = _.map(state.employees, (val, uid) => {
+  const tempArr = _.map(state.employees, (val, uid) => {
     return { ...val, uid }
+  })
+  // 对数组按照元素名称字段排序
+  const employees = _.sortBy(tempArr, (item) => {
+    return item.name
   })
   return { employees }
 }
