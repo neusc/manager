@@ -13,6 +13,7 @@
     "react-native": "0.55.2",
     "react-native-communications": "^2.2.1",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-vector-icons": "^4.6.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"

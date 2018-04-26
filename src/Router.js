@@ -6,7 +6,7 @@ import EmployeeList from './components/EmployeeList'
 import EmployeeCreate from './components/EmployeeCreate'
 import EmployeeEdit from './components/EmployeeEdit'
 import { employeeReset } from './actions'
-import TabBar from './components/TabBar'
+import TabIcon from './components/TabIcon'
 import Chat from './components/Chat'
 import Me from './components/Me'
 
@@ -23,11 +23,11 @@ class RouterComponent extends Component {
           <Scene key="auth">
             <Scene key="login" component={LoginForm} title="Please Login" initial />
           </Scene>
-          <Tabs key="tabBar">
-            <Stack key="chat_stack" title="Chats">
+          <Tabs key="tabBar" tabBarStyle={styles.tabBarStyle}>
+            <Stack key="chat_stack" title="Chats" icon={TabIcon}>
               <Scene key="chat" component={Chat} />
             </Stack>
-            <Stack key="contacts_stack" title="Contacts" hideNavBar>
+            <Stack key="contacts_stack" title="Contacts" hideNavBar icon={TabIcon}>
               <Scene key="main">
                 <Scene
                   rightTitle="Add"
@@ -53,15 +53,20 @@ class RouterComponent extends Component {
                 />
               </Scene>
             </Stack>
-            <Stack key="me_stack" title="Me">
-              <Scene key="me" component={Me} />
+            <Stack key="me_stack" title="Me" icon={TabIcon}>
+              <Scene key="me" title="Me" component={Me} />
             </Stack>
           </Tabs>
         </Scene>
       </Router>
     )
   }
+}
 
+const styles = {
+  tabBarStyle : {
+    backgroundColor: 'white'
+  }
 }
 
 export default connect(null, { employeeReset })(RouterComponent)
