@@ -29,6 +29,11 @@ class EmployeeEdit extends Component {
     Communications.text(phone, `Your upcoming shift is on ${shift}`)
   }
 
+  onAccept () {
+    this.props.employeeDelete({ uid: this.props.employee.uid })
+    this.setState({ showModal: false })
+  }
+
   render () {
     return (
       <Card>
@@ -54,7 +59,7 @@ class EmployeeEdit extends Component {
 
         <Confirm
           visible={this.state.showModal}
-          onAccept={() => this.props.employeeDelete({ uid: this.props.employee.uid })}
+          onAccept={() => this.onAccept()}
           onDecline={() => this.setState({ showModal: false })}
         >
           Are you sure you want to delete this?

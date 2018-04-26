@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 // Required for side-effects
 require('firebase/firestore')
-import { Actions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux'
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
@@ -28,7 +28,7 @@ export const employeeCreate = ({ name, phone, shift }) => {
     db.collection('users').doc(userId).collection('employees').add({ name, phone, shift })
       .then(() => {
         dispatch({ type: EMPLOYEE_CREATE }) // 创建雇员成功后重置创建表单的数据
-        Actions.main({ type: 'reset' })// 去除当前页面左上角的返回按钮
+        Actions.pop()// 去除当前页面左上角的返回按钮
       })
       .catch(error => {console.log(error)})
   }
@@ -48,6 +48,7 @@ export const employeesFetch = () => {
         querySnapshot.forEach(function (doc) {
           employees[doc.id] = doc.data()
         })
+        console.log(employees)
         // dispatch必须放在promise成功回调中，否则可能没有获取到数据就dispatch
         dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: employees })
       }, function (error) {
@@ -64,7 +65,7 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
     db.collection('users').doc(userId).collection('employees').doc(uid).set({ name, phone, shift })
       .then(() => {
         dispatch({ type: EMPLOYEE_SAVE_SUCCESS }) // 更新雇员信息成功后重置创建表单的数据
-        Actions.main({ type: 'reset' })// 去除当前页面左上角的返回按钮
+        Actions.pop()// 去除当前页面左上角的返回按钮
       })
       .catch(error => {console.log(error)})
   }
@@ -78,7 +79,7 @@ export const employeeDelete = ({ uid }) => {
     db.collection('users').doc(userId).collection('employees').doc(uid).delete()
       .then(() => {
         dispatch({ type: EMPLOYEE_DELETE_SUCCESS }) // 更新雇员信息成功后重置创建表单的数据
-        Actions.main({ type: 'reset' })// 去除当前页面左上角的返回按钮
+        Actions.main()// 去除当前页面左上角的返回按钮
       })
       .catch(error => {console.log(error)})
   }

@@ -11,7 +11,7 @@ class EmployeeList extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    // this.createDataSource(newProps)
+
   }
 
   renderItem (employee) {

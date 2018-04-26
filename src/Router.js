@@ -12,7 +12,7 @@ import Me from './components/Me'
 
 class RouterComponent extends Component {
   onBackPress () {
-    Actions.main()
+    Actions.pop()
     this.props.employeeReset()
   }
 
@@ -24,7 +24,7 @@ class RouterComponent extends Component {
             <Scene key="login" component={LoginForm} title="Please Login" initial />
           </Scene>
           <Tabs key="tabBar" tabBarStyle={styles.tabBarStyle}>
-            <Stack key="chat_stack" title="Chats" icon={TabIcon}>
+            <Stack key="chat_stack" title="Chats" icon={TabIcon} initial>
               <Scene key="chat" component={Chat} />
             </Stack>
             <Stack key="contacts_stack" title="Contacts" hideNavBar icon={TabIcon}>
@@ -54,7 +54,7 @@ class RouterComponent extends Component {
               </Scene>
             </Stack>
             <Stack key="me_stack" title="Me" icon={TabIcon}>
-              <Scene key="me" title="Me" component={Me} />
+              <Scene key="me" title="Me" component={Me} initial />
             </Stack>
           </Tabs>
         </Scene>
@@ -64,7 +64,7 @@ class RouterComponent extends Component {
 }
 
 const styles = {
-  tabBarStyle : {
+  tabBarStyle: {
     backgroundColor: 'white'
   }
 }
