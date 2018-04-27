@@ -23,18 +23,21 @@ export const passwordChanged = (text) => {
 }
 
 export const loginUser = ({ email, password }) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({ type: LOGIN_USER })
     // 登陆账户
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch((error) => {
-        console.log(error)
+    try {
+      let user = await firebase.auth().signInWithEmailAndPassword(email, password)
+      loginUserSuccess(dispatch, user)
+    } catch (e) {
+      try {
         // 创建账户
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch))
-      })
+        let user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        loginUserSuccess(dispatch, user)
+      } catch (e) {
+        loginUserFail(dispatch)
+      }
+    }
   }
 }
 
